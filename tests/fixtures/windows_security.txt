@@ -1,0 +1,20 @@
+An account was successfully logged on.
+
+Subject:
+	Security ID:		S-1-5-18
+	Account Name:		DC01$
+	Account Domain:		ACME
+
+New Logon:
+	Security ID:		S-1-5-21-1004336348-1177238915-682003330-1105
+	Account Name:		svc_backup
+	Account Domain:		ACME
+
+Network Information:
+	Workstation Name:	JUMPBOX-02
+	Source Network Address:	10.20.8.33
+	Source Port:		51544
+
+Detailed Authentication Information:
+	Logon Process:		NtLmSsp
+	Authentication Package:	NTLM

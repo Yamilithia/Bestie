@@ -1,0 +1,19 @@
+# Example dictionary. Copy to ~/.bestie/dictionary.yaml (or run `bestie init`).
+# Everything here is treated as sensitive, is never sent upstream, and is used by
+# the leak guard as a list of values that must not leave the machine.
+
+orgs: [Acme, Acme Financial]
+customers: [Globex, Initech]
+internal_domains: [corp.acme.com, acme.local, acme.com]   # hosts under these keep structure
+ad_domains: [ACME]                                        # NetBIOS names (ACME\jdoe)
+terms: [Project Falcon]                                   # codenames, projects
+hosts: [jumpbox, fs01]
+users: [svc_backup]
+# Your naming conventions as regexes (case-insensitive, no anchors needed).
+hostname_patterns:
+  - '(wks|lap|srv)-[a-z]{2,4}-\d{2,4}'
+  - '[a-z]{3}-(dc|web|sql)\d+'
+# Values that are fine to show the model as-is (IPs, CIDRs, domains, words).
+allow:
+  - 10.255.0.0/16
+  - partner-portal.example.org

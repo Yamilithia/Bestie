@@ -1,0 +1,10 @@
+<Event><System><EventID>3</EventID><Computer>fs01.corp.acme.com</Computer></System>
+<EventData>
+<Data Name="Image">C:\Users\mrossi\AppData\Local\Temp\invoice.exe</Data>
+<Data Name="User">ACME\mrossi</Data>
+<Data Name="SourceIp">10.20.12.9</Data>
+<Data Name="SourceHostname">wks-hr-007.corp.acme.com</Data>
+<Data Name="DestinationIp">45.137.21.9</Data>
+<Data Name="DestinationHostname">c2.badstuff.top</Data>
+<Data Name="DestinationPort">8443</Data>
+</EventData></Event>
