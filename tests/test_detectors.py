@@ -163,3 +163,20 @@ def test_hostname_patterns(redactor):
 def test_user_allowlist_addition():
     r = Redactor(Vault(), Dictionary(allow=["10.99.0.0/16", "partner.example-corp.com"]))
     assert r.redact("10.99.1.1 partner.example-corp.com") == "10.99.1.1 partner.example-corp.com"
+
+
+@pytest.mark.parametrize(
+    "text,expected",
+    [
+        ("Nombre de cuenta:\t\tmnuñez", "Nombre de cuenta:\t\tUSER_001"),
+        ("Nombre de estación de trabajo:\tPC-FIN-07", "Nombre de estación de trabajo:\tHOST_001"),
+        ("usuario=agarcia equipo=LAP-03", "usuario=USER_001 equipo=HOST_001"),
+        ("Dominio de cuenta:\t\tCONTOSO", "Dominio de cuenta:\t\tDOMAIN_001"),
+        ("Account Domain:\t\tCONTOSO", "Account Domain:\t\tDOMAIN_001"),
+        ("contraseña=Verano2026!", "contraseña=SECRET_001"),
+        ("Clave de registro: HKLM\\Software", "Clave de registro: HKLM\\Software"),
+        ("Nombre de cuenta:\t\t-", "Nombre de cuenta:\t\t-"),
+    ],
+)
+def test_spanish_fields(redactor, text, expected):
+    assert redactor.redact(text) == expected

@@ -38,6 +38,17 @@ SENSITIVE = {
         "00:1A:2B:3C:4D:5E",
         "ACME",
     ],
+    "windows_security_es.txt": [
+        "SRV-NOM-01",
+        "CONTOSO",
+        "S-1-5-21-3623811015",
+        "mnuñez",
+        "PC-FINANZAS-07",
+        "10.40.2.15",
+        "agarcia",
+        "LAP-RRHH-03",
+        "Verano2026!",
+    ],
     "windows_security.txt": [
         "DC01",
         "svc_backup",

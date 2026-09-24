@@ -128,18 +128,32 @@ _USER_KEYS = (
     r"user(?:[ _-]?name)?|account(?:[ _-]?name)?|target[ _-]?user(?:[ _-]?name)?"
     r"|subject[ _-]?user(?:[ _-]?name)?|src[ _-]?user|dst[ _-]?user|suser|duser"
     r"|logon[ _-]?user|samaccountname|login|owner|initiated[ _-]?by|actor"
+    # Spanish (Windows event logs on es-ES / es-MX systems, SIEM exports)
+    r"|usuario|nombre[ _-]de[ _-]usuario|nombre[ _-]de[ _-]cuenta|(?<!de )(?<!de_)cuenta"
+    r"|nombre[ _-]de[ _-]inicio[ _-]de[ _-]sesi[oó]n|propietario"
 )
 _HOST_KEYS = (
     r"host(?:[ _-]?name)?|computer(?:[ _-]?name)?|workstation(?:[ _-]?name)?"
     r"|source[ _-]?workstation|device(?:[ _-]?name)?|machine(?:[ _-]?name)?"
     r"|src[ _-]?host|dst[ _-]?host|shost|dhost|client[ _-]?name|endpoint|agent[ _-]?name"
+    r"|equipo|nombre[ _-]de(?:l)?[ _-]equipo|estaci[oó]n[ _-]de[ _-]trabajo"
+    r"|nombre[ _-]de[ _-]estaci[oó]n[ _-]de[ _-]trabajo"
+    r"|estaci[oó]n[ _-]de[ _-]trabajo[ _-]de[ _-]origen"
+    r"|servidor|nombre[ _-]de[ _-]servidor|dispositivo|nombre[ _-]de(?:l)?[ _-]dispositivo"
+    r"|m[aá]quina|nombre[ _-]de[ _-]host|nombre[ _-]del[ _-]cliente"
 )
-_KV_VALUE = r"[\"']?\s*[:=]\s*[\"']?\s*([A-Za-z0-9][\w.$-]*)"
-_XML_VALUE = r"[\"']\s*>\s*([A-Za-z0-9][\w.$-]*)\s*<"
+_DOMAIN_KEYS = (
+    r"account[ _-]?domain|target[ _-]?domain(?:[ _-]?name)?|subject[ _-]?domain(?:[ _-]?name)?"
+    r"|user[ _-]?domain|logon[ _-]?domain|dominio[ _-]de[ _-]cuenta|dominio"
+)
+# [^\W_] = any letter or digit, including accented ones (mnuñez).
+_KV_VALUE = r"[\"']?\s*[:=]\s*[\"']?\s*([^\W_][\w.$-]*)"
+_XML_VALUE = r"[\"']\s*>\s*([^\W_][\w.$-]*)\s*<"
 
 # Placeholder-ish values that are not identities.
 _NON_VALUES = frozenset(
-    "n/a na none null nil unknown true false yes no local localhost system - x".split()
+    "n/a na none null nil unknown true false yes no local localhost system - x "
+    "nt builtin workgroup ninguno ninguna desconocido sistema".split()
 )
 
 
@@ -149,7 +163,7 @@ class KeyValueDetector:
 
     def __init__(self) -> None:
         self._rules = []
-        for kind, keys in ((T.USER, _USER_KEYS), (T.HOST, _HOST_KEYS)):
+        for kind, keys in ((T.USER, _USER_KEYS), (T.HOST, _HOST_KEYS), (T.DOMAIN, _DOMAIN_KEYS)):
             kv = re.compile(rf"(?i)(?<![\w])(?:{keys})(?![\w]){_KV_VALUE}")
             xml = re.compile(rf"(?i)name\s*=\s*[\"'](?:{keys}){_XML_VALUE}")
             self._rules += [(kind, kv), (kind, xml)]
@@ -257,6 +271,7 @@ _SECRET_KV = [
     re.compile(r"(?i)\bbasic\s+([A-Za-z0-9+/=]{12,})"),
     re.compile(
         r"(?i)(?<![\w])(?:password|passwd|pwd|pass|passphrase|secret|client[_-]?secret"
+        r"|contrase[nñ]a|clave|clave[_ -]de[_ -]acceso|secreto"
         r"|api[_-]?key|apikey|access[_-]?key|secret[_-]?key|access[_-]?token|auth[_-]?token"
         r"|refresh[_-]?token|token|private[_-]?key|connection[_-]?string)"
         r"[\"']?\s*[:=]\s*[\"']?([^\s\"',;&<>)\]}]{4,}(?<![.]))"

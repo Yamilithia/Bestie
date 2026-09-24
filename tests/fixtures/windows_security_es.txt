@@ -1,0 +1,20 @@
+Se inició sesión correctamente en una cuenta.
+
+Sujeto:
+	Id. de seguridad:		S-1-5-18
+	Nombre de cuenta:		SRV-NOM-01$
+	Dominio de cuenta:		CONTOSO
+	Id. de inicio de sesión:		0x3E7
+
+Nuevo inicio de sesión:
+	Id. de seguridad:		S-1-5-21-3623811015-3361044348-30300820-1013
+	Nombre de cuenta:		mnuñez
+	Dominio de cuenta:		CONTOSO
+
+Información de red:
+	Nombre de estación de trabajo:	PC-FINANZAS-07
+	Dirección de red de origen:	10.40.2.15
+	Puerto de origen:		49812
+
+Detalles:
+	usuario=agarcia equipo=LAP-RRHH-03 contraseña=Verano2026!
