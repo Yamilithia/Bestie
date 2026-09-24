@@ -83,7 +83,8 @@ class Vault:
             }
             fd, tmp = tempfile.mkstemp(dir=self.path.parent, prefix=".vault-")
             try:
-                os.fchmod(fd, 0o600)
+                if hasattr(os, "fchmod"):  # POSIX only; Windows ACLs protect the profile dir
+                    os.fchmod(fd, 0o600)
                 with os.fdopen(fd, "w") as fh:
                     json.dump(data, fh, indent=1, ensure_ascii=False)
                 os.replace(tmp, self.path)

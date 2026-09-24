@@ -62,6 +62,29 @@ git clone … && cd Bestie
 uv venv && uv pip install -e ".[dev]"       # or: pipx install .
 ```
 
+### Windows (PowerShell)
+
+```powershell
+winget install --id=astral-sh.uv -e          # or: pip install uv  (needs Python 3.10+)
+git clone https://github.com/Yamilithia/Bestie; cd Bestie
+uv venv; uv pip install -e .
+.\.venv\Scripts\Activate.ps1                  # makes `bestie` available in this shell
+```
+
+If activation is blocked, run
+`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once. Otherwise, call
+`.\.venv\Scripts\bestie.exe` directly. Bestie's files live in
+`$env:USERPROFILE\.bestie`.
+
+PowerShell equivalents of the commands below:
+
+```powershell
+$env:ANTHROPIC_API_KEY = "sk-ant-..."; bestie serve                     # terminal 1
+$env:ANTHROPIC_BASE_URL = "http://127.0.0.1:8787"; $env:ANTHROPIC_API_KEY = "bestie"; claude   # terminal 2
+Get-Content alert.log | bestie redact | Set-Clipboard                    # pipe mode
+Get-Clipboard | bestie restore
+```
+
 ## Setup (once)
 
 ```bash
